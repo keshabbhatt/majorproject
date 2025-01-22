@@ -17,7 +17,7 @@ export function Footer() {
           <div className="space-y-4">
             <h2 className="text-white text-lg font-semibold">Contact Us</h2>
             <p className="flex items-center gap-2">
-              <FaMapMarkerAlt className="text-blue-500" /> Kanchanpur,NEPAL
+              <FaMapMarkerAlt className="text-blue-500" /> Kanchanpur, Nepal
             </p>
             <p className="flex items-center gap-2">
               <FaPhone className="text-green-500" /> 9805762636
