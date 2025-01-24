@@ -1,49 +1,62 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import Logo from "../assets/logo.png"; // Adjust the path to your logo image
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isHome, setIsHome] = useState(false); // State to track if Home is clicked
+  const navigate = useNavigate(); // Hook to programmatically navigate
+
+  const handleHomeClick = () => {
+    setIsHome(true); // Set navbar to white when Home is clicked
+    navigate("/"); // Navigate to the home page
+  };
 
   return (
-    <nav className="bg-black border-b border-gray-800 fixed top-0 left-0 w-full z-50">
+    <nav className={`border-b border-gray-800 fixed top-0 left-0 w-full z-50 ${isHome ? 'bg-white' : 'bg-white'}`}>
       <div className="container mx-auto px-6">
         <div className="flex justify-between items-center h-20">
-         {/* Left-aligned Logo */}
-<Link to="/" className="flex items-center">
-  <img
-    src={Logo} // Use the imported logo
-    alt="Logo"
-    className="w-16 h-19" // Adjust the size as needed
-  />
-</Link>
-
+          {/* Left-aligned Logo */}
+          <Link to="/" className="flex items-center" onClick={handleHomeClick}>
+            <img
+              src={Logo} // Use the imported logo
+              alt="Logo"
+              className="w-16 h-19" // Adjust the size as needed
+            />
+          </Link>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-8">
-            <div className="bg-black/60 backdrop-blur-sm rounded-full px-6 py-2 flex items-center gap-6 border border-gray-700 shadow-lg">
+            <div className="bg-white/60 backdrop-blur-sm rounded-full px-6 py-2 flex items-center gap-6 border border-gray-700 shadow-lg">
+              <Link
+                to="/"
+                className="text-black-300 hover:text-white transition-all hover:shadow-md px-2 py-1 rounded-md"
+                onClick={handleHomeClick}
+              >
+                Home
+              </Link>
               <Link
                 to="/courses"
-                className="text-gray-300 hover:text-white transition-all hover:shadow-md px-2 py-1 rounded-md"
+                className="text-black-300 hover:text-white transition-all hover:shadow-md px-2 py-1 rounded-md"
               >
                 Courses
               </Link>
               <Link
                 to="/study-materials"
-                className="text-gray-300 hover:text-white  transition-all hover:shadow-md px-2 py-1 rounded-md"
+                className="text-black-300 hover:text-white  transition-all hover:shadow-md px-2 py-1 rounded-md"
               >
                 Study Materials
               </Link>
               <Link
                 to="/practice"
-                className="text-gray-300 hover:text-white transition-all hover:shadow-md px-2 py-1 rounded-md"
+                className="text-black-300 hover:text-white transition-all hover:shadow-md px-2 py-1 rounded-md"
               >
                 Practice
               </Link>
               <Link
                 to="/dashboard"
-                className="text-gray-300 hover:text-white transition-all hover:shadow-md px-2 py-1 rounded-md"
+                className="text-black-300 hover:text-white transition-all hover:shadow-md px-2 py-1 rounded-md"
               >
                 Dashboard
               </Link>
