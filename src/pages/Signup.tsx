@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Brain, Mail, Lock, Eye, EyeOff, User } from 'lucide-react';
 
 export function Signup() {
@@ -11,22 +11,43 @@ export function Signup() {
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle signup logic here
-  };
-
+  // Handle form input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
+  // Handle form submission (simulate account creation)
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const { fullName, email, password, confirmPassword } = formData;
+
+    // Simple validation
+    if (!fullName || !email || !password || !confirmPassword) {
+      setError('All fields are required');
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+
+    // Simulate account creation and sign the user up
+    localStorage.setItem('user', JSON.stringify({ fullName, email, password }));
+
+    // Redirect to the home page after successful signup
+    navigate('/');
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen overflow-y-auto bg-black text-white"> 
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center">
           <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-3 rounded-xl">
@@ -44,9 +65,11 @@ export function Signup() {
         </p>
       </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white/80 backdrop-blur-sm py-8 px-4 shadow-lg sm:rounded-xl sm:px-10">
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md px-4 overflow-auto">
+        <div className="bg-white/90 backdrop-blur-sm py-8 px-6 shadow-xl rounded-2xl bg-transparent">
+          {error && <div className="text-red-500 text-sm mb-4">{error}</div>}
           <form className="space-y-6" onSubmit={handleSubmit}>
+            {/* Full Name */}
             <div>
               <label htmlFor="fullName" className="block text-sm font-medium text-gray-700">
                 Full Name
@@ -62,12 +85,13 @@ export function Signup() {
                   required
                   value={formData.fullName}
                   onChange={handleChange}
-                  className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500"
                   placeholder="Enter your full name"
                 />
               </div>
             </div>
 
+            {/* Email */}
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                 Email address
@@ -80,16 +104,16 @@ export function Signup() {
                   id="email"
                   name="email"
                   type="email"
-                  autoComplete="email"
                   required
                   value={formData.email}
                   onChange={handleChange}
-                  className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500"
                   placeholder="Enter your email"
                 />
               </div>
             </div>
 
+            {/* Password */}
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                 Password
@@ -101,11 +125,11 @@ export function Signup() {
                 <input
                   id="password"
                   name="password"
-                  type={showPassword ? "text" : "password"}
+                  type={showPassword ? 'text' : 'password'}
                   required
                   value={formData.password}
                   onChange={handleChange}
-                  className="appearance-none block w-full pl-10 pr-10 py-2 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  className="block w-full pl-10 pr-10 py-2 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500"
                   placeholder="Create a password"
                 />
                 <button
@@ -122,6 +146,7 @@ export function Signup() {
               </div>
             </div>
 
+            {/* Confirm Password */}
             <div>
               <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
                 Confirm Password
@@ -133,11 +158,11 @@ export function Signup() {
                 <input
                   id="confirmPassword"
                   name="confirmPassword"
-                  type={showConfirmPassword ? "text" : "password"}
+                  type={showConfirmPassword ? 'text' : 'password'}
                   required
                   value={formData.confirmPassword}
                   onChange={handleChange}
-                  className="appearance-none block w-full pl-10 pr-10 py-2 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  className="block w-full pl-10 pr-10 py-2 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500"
                   placeholder="Confirm your password"
                 />
                 <button
@@ -157,46 +182,12 @@ export function Signup() {
             <div>
               <button
                 type="submit"
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                className="w-full py-2 px-4 rounded-lg text-white font-medium bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 transition-colors"
               >
-                Create Account
+                Sign up
               </button>
             </div>
           </form>
-
-          <div className="mt-6">
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300"></div>
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">Or continue with</span>
-              </div>
-            </div>
-
-            <div className="mt-6 grid grid-cols-2 gap-3">
-              <button
-                type="button"
-                className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
-              >
-                <img
-                  className="h-5 w-5"
-                  src="https://www.svgrepo.com/show/475656/google-color.svg"
-                  alt="Google logo"
-                />
-              </button>
-              <button
-                type="button"
-                className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
-              >
-                <img
-                  className="h-5 w-5"
-                  src="https://www.svgrepo.com/show/475647/github-color.svg"
-                  alt="GitHub logo"
-                />
-              </button>
-            </div>
-          </div>
         </div>
       </div>
     </div>

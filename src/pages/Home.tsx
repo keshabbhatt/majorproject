@@ -1,9 +1,19 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { BookOpen, Target, Bot, Search } from "lucide-react";
-import { Link } from "react-router-dom";
 
 export default function Home() {
+  const [query, setQuery] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!query.trim()) return;
+    navigate(`/search?q=${encodeURIComponent(query)}`);
+  };
+
   return (
-    <div className="min-h-screen overflow-y-auto bg-gradient-to-r from-blue-800 via-indigo-600 to-pink-800 text-white">
+    <div className="min-h-screen overflow-y-auto bg-black text-white"> 
       
       {/* CTA Section */}
       <section className="py-16 pt-24">
@@ -17,17 +27,26 @@ export default function Home() {
           </p>
 
           {/* Search Box */}
-          <Link
-            to="/search"
-            className="flex items-center justify-between bg-white text-black w-full max-w-xl mx-auto px-4 py-2 rounded-full font-medium hover:bg-gray-100 transition-colors shadow-lg mb-12"
-          >
-            <input
-              type="text"
-              placeholder="Search for AI tutor..."
-              className="w-full bg-transparent outline-none text-black placeholder-gray-400"
-            />
-            <Search className="w-6 h-6 text-black" />
-          </Link>
+          <form
+  onSubmit={handleSearch}
+  className="flex items-center justify-between bg-white text-black w-full max-w-xl mx-auto px-4 py-2 rounded-full font-medium hover:bg-gray-100 transition-colors shadow-lg mb-12"
+>
+  <input
+    type="text"
+    placeholder="Search for AI tutor..."
+    value={query}
+    onChange={(e) => setQuery(e.target.value)}
+    className="w-full bg-transparent outline-none text-black placeholder-gray-400"
+  />
+  <button
+    type="submit"
+    className="ml-2 flex items-center justify-center p-2 rounded-full hover:bg-gray-200 transition-colors duration-200"
+    aria-label="Search"
+  >
+    <Search className="w-6 h-6 text-black pointer-events-none" />
+  </button>
+</form>
+
         </div>
       </section>
 
@@ -49,7 +68,7 @@ export default function Home() {
               </p>
             </div>
 
-            {/* You can add more feature cards here */}
+            {/* Add more feature cards here if needed */}
           </div>
         </div>
       </section>
@@ -61,7 +80,6 @@ export default function Home() {
             Why Choose SOE Intel?
           </h2>
           <div className="space-y-6">
-            {/* Benefit Row 1 */}
             <div className="flex items-center space-x-4">
               <div className="text-blue-400">
                 <Target className="w-5 h-5" />
@@ -72,7 +90,7 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Repeat similar structure for other benefits */}
+            {/* Add more benefits here if needed */}
           </div>
         </div>
       </section>

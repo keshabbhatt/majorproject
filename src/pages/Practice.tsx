@@ -41,14 +41,14 @@ export function Practice() {
     : quizzes.filter(quiz => quiz.subject === selectedSubject);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-blue-50 py-12">
-      <div className="container mx-auto px-4">
+    <div className="min-h-screen bg-gradient-to-r from-blue-600 via-indigo-600 to-pink-800 text-white overflow-y-auto">
+      <div className="container mx-auto px-4 py-6 pt-24"> {/* Added pt-24 to provide space for the navbar */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">
+          <h1 className="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-orange-600 to-green-700">
             Practice Quizzes
           </h1>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Test your knowledge with our AI-generated quizzes tailored to your course content
+          <p className="text-green-600 max-w-2xl mx-auto">
+            Test your knowledge with our AI-generated quizzes tailored to your course content.
           </p>
         </div>
 
@@ -56,11 +56,7 @@ export function Practice() {
         <div className="flex justify-center gap-4 mb-12">
           <button
             onClick={() => setSelectedSubject('all')}
-            className={`px-4 py-2 rounded-lg transition-all ${
-              selectedSubject === 'all'
-                ? 'bg-blue-600 text-white shadow-lg'
-                : 'bg-white/80 text-gray-600 hover:bg-white'
-            }`}
+            className={`px-4 py-2 rounded-lg transition-all ${selectedSubject === 'all' ? 'bg-blue-600 text-white shadow-lg' : 'bg-white/80 text-gray-600 hover:bg-white'}`}
           >
             All Subjects
           </button>
@@ -68,11 +64,7 @@ export function Practice() {
             <button
               key={subject}
               onClick={() => setSelectedSubject(subject)}
-              className={`px-4 py-2 rounded-lg transition-all ${
-                selectedSubject === subject
-                  ? 'bg-blue-600 text-white shadow-lg'
-                  : 'bg-white/80 text-gray-600 hover:bg-white'
-              }`}
+              className={`px-4 py-2 rounded-lg transition-all ${selectedSubject === subject ? 'bg-blue-600 text-white shadow-lg' : 'bg-white/80 text-gray-600 hover:bg-white'}`}
             >
               {subject}
             </button>
@@ -106,11 +98,7 @@ export function Practice() {
                   {quiz.timeLimit} minutes
                 </div>
                 <div className="col-span-2">
-                  Difficulty: <span className={`font-medium ${
-                    quiz.difficulty === 'Easy' ? 'text-green-600' :
-                    quiz.difficulty === 'Medium' ? 'text-yellow-600' :
-                    'text-red-600'
-                  }`}>{quiz.difficulty}</span>
+                  Difficulty: <span className={`font-medium ${quiz.difficulty === 'Easy' ? 'text-green-600' : quiz.difficulty === 'Medium' ? 'text-yellow-600' : 'text-red-600'}`}>{quiz.difficulty}</span>
                 </div>
               </div>
 

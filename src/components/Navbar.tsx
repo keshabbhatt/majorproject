@@ -16,7 +16,7 @@ export function Navbar() {
   return (
     <nav className={`border-b border-gray-800 fixed top-0 left-0 w-full z-50 ${isHome ? 'bg-white' : 'bg-white'}`}>
       <div className="container mx-auto px-6">
-        <div className="flex justify-between items-center h-20">
+        <div className="flex justify-between items-center h-20 max-w-full overflow-hidden">
           {/* Left-aligned Logo */}
           <Link to="/" className="flex items-center" onClick={handleHomeClick}>
             <img
@@ -28,7 +28,7 @@ export function Navbar() {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-8">
-            <div className="bg-white/60 backdrop-blur-sm rounded-full px-6 py-2 flex items-center gap-6 border border-gray-700 shadow-lg">
+            <div className="bg-white/60 backdrop-blur-sm rounded-full px-6 py-2 flex items-center gap-6 border border-gray-700 shadow-lg overflow-hidden">
               <Link
                 to="/"
                 className="text-black-300 hover:text-white transition-all hover:shadow-md px-2 py-1 rounded-md"
@@ -44,7 +44,7 @@ export function Navbar() {
               </Link>
               <Link
                 to="/study-materials"
-                className="text-black-300 hover:text-white  transition-all hover:shadow-md px-2 py-1 rounded-md"
+                className="text-black-300 hover:text-white transition-all hover:shadow-md px-2 py-1 rounded-md"
               >
                 Study Materials
               </Link>
@@ -83,7 +83,7 @@ export function Navbar() {
         {/* Mobile Menu */}
         {isOpen && (
           <div className="md:hidden py-4">
-            <div className="bg-black/60 backdrop-blur-sm rounded-2xl p-4 space-y-3 border border-gray-700">
+            <div className="bg-black/60 backdrop-blur-sm rounded-2xl p-4 space-y-3 border border-gray-700 max-w-full overflow-hidden">
               <Link
                 to="/courses"
                 className="block text-gray-300 hover:text-white px-4 py-2 rounded-lg hover:bg-black/40 transition-colors shadow-md"

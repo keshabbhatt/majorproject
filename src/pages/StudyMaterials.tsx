@@ -37,13 +37,13 @@ export function StudyMaterials() {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50 py-12">
-      <div className="container mx-auto px-4">
+    <div className="min-h-screen bg-gradient-to-r from-blue-600 via-indigo-600 to-pink-800 text-white overflow-y-auto">
+      <div className="container mx-auto px-4 pt-24"> {/* Added pt-24 to add top padding for the navbar */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">
+          <h1 className="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-orange-600 to-green-600">
             Study Materials
           </h1>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <p className="text-green-600 max-w-2xl mx-auto">
             Access comprehensive study materials, notes, and resources for your engineering courses
           </p>
         </div>
@@ -51,7 +51,7 @@ export function StudyMaterials() {
         {/* Search Bar */}
         <div className="max-w-2xl mx-auto mb-12">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-red-400 w-5 h-5" />
             <input
               type="text"
               placeholder="Search materials..."
